@@ -6,4 +6,7 @@
     <string name="limpar">Limpar Historico</string>
     <string name="mostrarnoterminal">Mostrar dados no terminal
     </string>
+    <string name="principal">Main</string>
+    <string name="showgraph">Show Graph</string>
+
 </resources>

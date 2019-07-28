@@ -9,7 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.time.Instant;
@@ -34,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button btn_main = (Button) findViewById(R.id.btn_main);
 
 
         EditText txted1 = (EditText) findViewById(R.id.txtin1);
@@ -68,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         EditText txted1 = (EditText) findViewById(R.id.txtin1);
         EditText txted2 = (EditText) findViewById(R.id.txtin2);
-        if (txted2.length() > 1){
+        /*if (txted2.length() > 1){
             int peso = (int) Float.parseFloat(txted2.getText().toString());
-        }
+        }*/
 
         switch (view.getId()) {
             case R.id.btn_save:
@@ -129,6 +135,18 @@ public class MainActivity extends AppCompatActivity {
 
                 //System.out.println("cursor retornou " + c.getString(1));
                 c.close();
+                setContentView(R.layout.activity_listviewer);
+
+                ListAdapter adapter = new ArrayAdapter<String> (this, android.R.layout.simple_list_item_1, list);
+                ListView list1 = findViewById(R.id.list1);
+                list1.setAdapter(adapter);
+                break;
+
+            case R.id.btn_main:
+                setContentView(R.layout.activity_main);
+                System.out.println(date3[0]);
+                txted1 = findViewById(R.id.txtin1);
+                txted1.setText(date3[0]);
                 break;
 
         }
