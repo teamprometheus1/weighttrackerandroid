@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">weight tracker</string>
+    <string name="data">Data de hoje</string>
+    <string name="peso">Peso de Hoje</string>
+    <string name="salvar">Salvar</string>
+    <string name="limpar">Limpar Historico</string>
+</resources>
