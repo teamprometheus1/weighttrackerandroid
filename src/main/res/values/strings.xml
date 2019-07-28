@@ -4,4 +4,6 @@
     <string name="peso">Peso de Hoje</string>
     <string name="salvar">Salvar</string>
     <string name="limpar">Limpar Historico</string>
+    <string name="mostrarnoterminal">Mostrar dados no terminal
+    </string>
 </resources>

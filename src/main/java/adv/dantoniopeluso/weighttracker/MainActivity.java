@@ -6,16 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -36,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         EditText txted1 = (EditText) findViewById(R.id.txtin1);
         EditText txted2 = (EditText) findViewById(R.id.txtin2);
 
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put(databaseContract.pesos.COL2, date3[0]);
                     values.put(databaseContract.pesos.COL3, peso);
-                    long row = db.insert(databaseContract.pesos.TABLE_NAME, null, values);
+                    //long row = db.insert(databaseContract.pesos.TABLE_NAME, null, values);
                     if (db.insert(databaseContract.pesos.TABLE_NAME, null, values) != -1) {
                         Toast toast = Toast.makeText(this, "Data Saved! :)", Toast.LENGTH_LONG);
                         toast.show();
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         //txted1.setText(date3[0].toString());
                         txted2.setText("");
                     }
-                    System.out.println("row number is: " + row);
+                    //System.out.println("row number is: " + row);
                 }else{
                     Toast toast = Toast.makeText(this, "Peso nao pode estar vazio", Toast.LENGTH_LONG);
                     toast.show();
@@ -107,6 +107,30 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
                     databaseContract.pesos.version++;
                 break;
+
+            case R.id.btn_show:
+
+                DatabaseHelper dbHelper2 = new DatabaseHelper(this);
+                SQLiteDatabase db = dbHelper2.getReadableDatabase();
+                String getColumns[] = {databaseContract.pesos.COL2, databaseContract.pesos.COL3};
+                Cursor c = db.query(databaseContract.pesos.TABLE_NAME, getColumns, null, null, null, null, null);
+                c.moveToFirst();
+                String query = "SELECT * FROM " + databaseContract.pesos.TABLE_NAME;
+                Cursor cursor = db.rawQuery(query, null);
+                ArrayList list = new ArrayList();
+                while (cursor.moveToNext()){
+                    list.add(cursor.getString(0));
+                    list.add(cursor.getString(1));
+                    list.add(cursor.getString(2));
+                }
+                cursor.close();
+                db.close();
+                System.out.println(list);
+
+                //System.out.println("cursor retornou " + c.getString(1));
+                c.close();
+                break;
+
         }
     }
 
